@@ -63,12 +63,20 @@ const request = async <Response>(
   url: string,
   options?: CustomOptions | undefined
 ) => {
+  /* Xử lý body request
+   * Nếu body là FormData (upload file, v.v.) thì giữ nguyên.
+   * Nếu body là object thường → stringify thành JSON.
+   */
   let body: FormData | string | undefined = undefined;
   if (options?.body instanceof FormData) {
     body = options.body;
   } else if (options?.body) {
     body = JSON.stringify(options.body);
   }
+  /* Tạo headers cơ bản
+   * Nếu gửi FormData, KHÔNG set Content-Type (để browser tự thêm).
+   * Nếu gửi JSON thì thêm header "Content-Type": "application/json".
+   */
   const baseHeaders: {
     [key: string]: string;
   } =
@@ -88,7 +96,7 @@ const request = async <Response>(
 
   const baseUrl =
     options?.baseUrl === undefined
-      ? envConfig.NEXT_PUBLIC_URL
+      ? envConfig.NEXT_PUBLIC_API_ENDPOINT
       : options.baseUrl;
 
   const fullUrl = `${baseUrl}/${normalizePath(url)}`;
