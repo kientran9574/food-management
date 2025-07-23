@@ -12,15 +12,17 @@ import {
 } from "@/components/ui/sheet";
 import { Button } from "@/components/ui/button";
 import DarkModeToggle from "@/components/dark-mode-toggle";
+import envConfig from "../../../config";
 
 const layout = ({
   children,
 }: Readonly<{
   children: React.ReactNode;
 }>) => {
+
   return (
-    <div className="flex min-h-screen w-full flex-col relative">
-      <header className="sticky top-0 flex h-16 items-center gap-4 border-b bg-background px-4 md:px-6">
+    <div className="flex min-h-screen w-full flex-col relative bg-[#FAF7F3] dark:bg-[#0a0a0a]">
+      <header className="sticky top-0 flex h-16 items-center gap-4 border-b px-4 md:px-6 bg-[#fff] dark:bg-[#0a0a0a] shadow-sm">
         <nav className="hidden flex-col gap-6 text-lg font-medium md:flex md:flex-row md:items-center md:gap-5 md:text-sm lg:gap-6">
           <Link
             href="#"
