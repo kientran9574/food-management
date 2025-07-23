@@ -4,7 +4,6 @@ import { cookies } from "next/headers";
 import jwt from "jsonwebtoken";
 export async function POST(request: Request) {
   const body = (await request.json()) as LoginBodyType;
-  console.log("🚀 ~ POST ~ body:", body);
   const cookiesStore = cookies();
   try {
     const res = await authApi.sLogin(body);
@@ -27,6 +26,7 @@ export async function POST(request: Request) {
       expires: new Date(decodedRefreshToken.exp * 1000),
     });
     return Response.json(res.payload);
+    console.log(res);
   } catch (error) {
     console.error("Error during login:", error);
     return new Response("Internal Server Error", { status: 500 });
