@@ -31,9 +31,29 @@ export const handleErrorApi = ({
       description: error?.payload?.message ?? "Lỗi không xác định",
       style: {
         background: "#f87171",
-        color: "white",
+        color: "#fff",
+        fontWeight: "semibold",
+        fontSize: "16px",
       },
       duration: duration ?? 5000,
     });
+  }
+};
+const isBrowser = typeof window !== "undefined";
+export const getAccessTokenLocalStorage = () => {
+  return isBrowser ? localStorage.getItem("accessToken") : null;
+};
+export const getRefreshTokenLocalStorage = () => {
+  return isBrowser ? localStorage.getItem("refreshToken") : null;
+};
+
+export const setAccessTokenLocalStorage = (accessToken: string) => {
+  if (isBrowser) {
+    localStorage.setItem("accessToken", accessToken);
+  }
+};
+export const setRefreshTokenLocalStorage = (refreshToken: string) => {
+  if (isBrowser) {
+    localStorage.setItem("refreshToken", refreshToken);
   }
 };

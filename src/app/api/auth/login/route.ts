@@ -17,7 +17,7 @@ export async function POST(request: Request) {
       httpOnly: true,
       sameSite: "lax",
       secure: true,
-      expires: new Date(decodedAccessToken.exp * 1000),
+      expires: new Date(decodedAccessToken.exp * 1000),   
     });
     (await cookiesStore).set("refreshToken", refreshToken, {
       path: "/",
@@ -26,6 +26,7 @@ export async function POST(request: Request) {
       secure: true,
       expires: new Date(decodedRefreshToken.exp * 1000),
     });
+
     return Response.json(res.payload);
   } catch (error) {
     console.error("Error during login:", error);

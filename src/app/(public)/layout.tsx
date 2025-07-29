@@ -19,7 +19,6 @@ const layout = ({
 }: Readonly<{
   children: React.ReactNode;
 }>) => {
-
   return (
     <div className="flex min-h-screen w-full flex-col relative bg-[#FAF7F3] dark:bg-[#0a0a0a]">
       <header className="sticky top-0 flex h-16 items-center gap-4 border-b px-4 md:px-6 bg-[#fff] dark:bg-[#0a0a0a] shadow-sm">
@@ -33,6 +32,7 @@ const layout = ({
           </Link>
           <NavItems className="text-muted-foreground transition-colors hover:text-foreground flex-shrink-0" />
         </nav>
+        {/* Responsive navigation menu for smaller mobile screens */}
         <Sheet>
           <SheetTrigger asChild>
             <Button

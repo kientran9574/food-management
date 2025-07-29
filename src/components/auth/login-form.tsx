@@ -17,12 +17,13 @@ import {
 } from "@/components/ui/form";
 import { Input } from "@/components/ui/input";
 import { LoginBody, LoginBodyType } from "@/schema-validation/auth-schema";
-import React from "react";
+import React, { use } from "react";
 import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useLoginMutation } from "@/hooks/use-auth";
 import { toast } from "sonner";
 import { handleErrorApi } from "@/lib/utils";
+import { useRouter } from "next/navigation";
 const LoginForm = () => {
   const form = useForm({
     resolver: zodResolver(LoginBody),
@@ -31,12 +32,23 @@ const LoginForm = () => {
       password: "",
     },
   });
+  const router = useRouter();
   const loginMutation = useLoginMutation();
   const onSubmit = async (data: LoginBodyType) => {
     if (loginMutation.isPending) return toast.info("Logging in...");
     try {
       await loginMutation.mutateAsync(data);
-      toast.success("Login successful!");
+      toast.success("Login successful!", {
+        position: "top-right",
+        duration: 2000,
+        style: {
+          background: "#4ade80",
+          color: "#fff",
+          fontWeight: "semibold",
+          fontSize: "16px",
+        },
+      });
+      router.push("/manage/dashboard");
     } catch (error) {
       handleErrorApi({
         error,
